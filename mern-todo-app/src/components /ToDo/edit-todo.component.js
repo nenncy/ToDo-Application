@@ -10,6 +10,15 @@ import { useState,useEffect } from "react";
 import { useHistory, useParams } from 'react-router';
 
 import {useNavigate} from 'react-router-dom'
+const myStyle={
+  // backgroundImage:'url('+image+')',
+  height:'100vh',
+  // marginTop:'auto',
+  backgroundColor: '#212529',
+  width:'100%',
+  backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
+};
 
 const EditTodo= () => {
 
@@ -54,16 +63,17 @@ const EditTodo= () => {
   };
 
   return (
+    <div className='mask' style={myStyle}>
     <Container className='center'>
         <Row className='content'>
         
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="Task">
-            <Form.Label>Task name</Form.Label>
+            <Form.Label  style={{color:'white'}}>Task name</Form.Label>
             <Form.Control type="text" value={data.todo_name} onChange={handleChange} />
           </Form.Group>
           <Form.Group controlId="date">
-            <Form.Label>Date</Form.Label>
+            <Form.Label  style={{color:'white'}}>Date</Form.Label>
           
             <DatePicker
                       selected={data.date}
@@ -82,6 +92,7 @@ const EditTodo= () => {
         </Form>
         </Row>
     </Container>
+    </div>
   );
 };
 

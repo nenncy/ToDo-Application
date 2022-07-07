@@ -1,0 +1,72 @@
+.administration {
+    .content-administration {
+        background-color: #fff !important;
+        padding: 20px 20px 70px 20px;
+        border-radius: 10px;
+    }
+
+
+    .ant-input {
+        padding: 4px 11px !important;
+    }
+
+    .ant-input-affix-wrapper {
+        color: #fff !important;
+    }
+
+    input {
+        color: #fff;
+
+    }
+
+    .administration-search {
+        padding: 10px 25px;
+        width: 300px;
+        float: right;
+        margin: 10px 0;
+        background: #000;
+        height: 45px;
+        border-radius: 4px;
+    }
+
+    .anticon.ant-input-clear-icon,
+    .ant-input-clear-icon {
+        color: rgb(125, 125, 125);
+    }
+
+    .ant-pagination {
+        float: right;
+        margin: 12px 0;
+    }
+
+    .add-btn {
+        margin: 10px 20px;
+        padding: 10px 20px;
+        height: 45px;
+        border-radius: 4px;
+    }
+
+
+}
+
+.edit-administration,
+.add-administration {
+    .ant-modal-title {
+        font-weight: 700;
+        font-size: 18px;
+    }
+
+    .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+        height: auto !important;
+        padding: 8px 11px !important;
+    }
+
+    .ant-btn-default,
+    .ant-btn-primary {
+        border-radius: 4px;
+        font-weight: 500;
+        padding: 2px 20px;
+        height: 44px;
+        font-size: 14px;
+    }
+}

@@ -7,7 +7,9 @@ let TODO= new Schema({
         type:String
     },
     date: { type: Date}
-}) 
+}
+,{ timestamps: true }
+) 
 
 module.exports=mongoose.model("TODO",TODO)
 

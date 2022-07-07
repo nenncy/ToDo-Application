@@ -1,0 +1,16 @@
+table {
+    /* //margin-top: 4%; */
+    width: 100%;
+    table-layout: fixed;
+  }
+  table tr th {
+    text-align: left;
+    background: gray;
+    color: white;
+    padding: auto;
+  }
+  table td {
+    text-align: left;
+    /* background: gray; */
+    color: white;
+  }

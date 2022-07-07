@@ -4,13 +4,12 @@ const todoRoutes=express.Router();
 const Todo=require('../Model/todo.model')
 
 //create to do
-
 todoRoutes.post('/create-todo' , async(req,res)=> {
    
   try{
     console.log(JSON.stringify(req.body));
     const todo_name=req.body.todo_name;
-    const date=req.body.date;
+    const date=Date.parse(req.body.date);
 
     const newTask=await Todo.create({
       todo_name,

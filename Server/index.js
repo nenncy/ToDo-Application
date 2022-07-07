@@ -10,6 +10,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/api',require('./Routes/Todo.route'));
+app.use('/api',require('./Controllers/Todaytasklist'))
 
 //mongo connection 
 
