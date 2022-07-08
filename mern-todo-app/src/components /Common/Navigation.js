@@ -9,7 +9,7 @@ function NavigationBar() {
 
   return (
     <>
-      <Navbar collapseOnSelect expand='sm' bg='dark' variant='dark'>
+      <Navbar collapseOnSelect expand='sm' bg='dark' variant='dark'  fixed="top">
         <Container>
           <Navbar.Brand > <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
             GETSET

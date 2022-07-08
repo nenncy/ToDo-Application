@@ -1,5 +1,5 @@
 table {
-    /* //margin-top: 4%; */
+    margin-top: 5%;
     width: 100%;
     table-layout: fixed;
   }
@@ -13,4 +13,9 @@ table {
     text-align: left;
     /* background: gray; */
     color: white;
+  }
+
+  .loader{
+    text-align: center;
+    margin-top: 20%;
   }
