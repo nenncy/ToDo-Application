@@ -96,11 +96,6 @@ import {useNavigate} from 'react-router-dom'
 //   );
 // };
 
-
-
-
-
-
 import SingleCard from "./Single-todolist";
 import Moment from 'react-moment';
 import 'react-toastify/dist/ReactToastify.css';
@@ -118,8 +113,11 @@ const myStyle = {
   hieght: '100%'
 };
 
-function EditTodo() {
+function EditTodo({id}) {
 
+  // const id=_id;
+
+  // console.log(id);
   const params = useParams();
   const [loading, setLoading] = useState(true);
   const [show, setShow] = useState(false);
@@ -172,41 +170,15 @@ function EditTodo() {
       date: data.date
     };
 
-    axios.post(`http://localhost:4000/api/edit/${params.id}`, userData).then((response) => {
+    axios.post(`http://localhost:4000/api/edit/${id}`, userData).then((response) => {
       console.log(response.status);
       console.log(response.data);
     });
     // console.log("notified");
   };
-
-  
-
-
-  // if (loading) return <div className='loader'>
-  //   <Loader type="bubble-loop" bgColor={"#212529"} title={"Loading"} color={'blue'} size={100} />
-  // </div>;
   return (
     <>
-      <div ><style>{"body { background-color: #212529; }"}</style>
-        <Container>
-          <Row className="justify-content-center">
-            <Col className="justify-content-center" xs='auto'>
-              <Button variant="primary" onClick={handleShow} style={modelstyle}>
-                Add Task
-              </Button>
-
-            </Col>
-          </Row>
-        </Container>
-      </div>
-      <Modal
-        show={show} onHide={handleClose} style={myStyle} centered>
-        <Modal.Header closeButton >
-          <Modal.Title>Update Task</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-
-          <Form onSubmit={handleSubmit} >
+      <Form onSubmit={handleSubmit} >
             <Form.Group controlId="Task">
               <Form.Label >Task name</Form.Label>
               <Form.Control type="text" value={data.todo_name} onChange={handleChange} />
@@ -239,8 +211,6 @@ function EditTodo() {
               draggable
               pauseOnHover></ToastContainer>
           </Form>
-        </Modal.Body>
-      </Modal>
     </>
   );
 }

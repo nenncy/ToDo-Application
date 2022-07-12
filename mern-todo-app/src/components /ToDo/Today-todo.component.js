@@ -7,6 +7,9 @@ import Button from 'react-bootstrap/Button';
 import { Container } from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
 import '../../Styles/todolist.css'
+import EditTodo from "./edit-todo.component";
+import { Modal } from 'react-bootstrap';
+
 const myStyle={
   // backgroundImage:'url('+image+')',
   height:'100vh',
@@ -18,6 +21,30 @@ const myStyle={
 };
 
 const TodayList = () => {
+  const [show, setShow] = useState(false);
+  const [edit, setEdit] = useState([])
+
+
+  const handleClose = () => setShow(false);
+
+  
+
+  const handleShow = (id) => {
+
+    console.log(id);
+    getData(id);
+    setShow(true);
+  }
+  const getData = async (id) => {
+
+    const edit = await axios.get(`http://localhost:4000/api/get/${id}`);
+    console.log(id);
+    setEdit(edit);
+
+    console.log(edit);
+    // setLoading(false)
+  }
+
 
   const [data, setData] = useState([])
   const fetchData = async () => {
@@ -62,9 +89,7 @@ const TodayList = () => {
                     {item.date}
                   </Moment></td>
                 <td className="table-actions">
-                  <Link to={{ pathname: `/edit/${item._id}` }}>
-                    Edit Task
-                  </Link>
+                <Button onClick={() => handleShow(item._id)}> Edit</Button>
                 </td>
                 <td className="table-actions">
                   <Button
@@ -80,6 +105,15 @@ const TodayList = () => {
           })}
         </tbody>
       </table>
+      <Modal
+         show={show} onHide={handleClose} style={myStyle} centered>
+        <Modal.Header closeButton >
+          <Modal.Title>Update {edit?.data?.data?.todo_name}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <EditTodo id={edit?.data?.data?._id} ></EditTodo>
+        </Modal.Body>
+      </Modal>
     </Container>
     </div>
     </>

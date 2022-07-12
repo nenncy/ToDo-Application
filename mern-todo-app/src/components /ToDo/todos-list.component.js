@@ -9,23 +9,48 @@ import { useHistory } from "react-router-dom";
 import '../../Styles/todolist.css'
 import image from '../../assets/images.jpeg'
 import Loader from "react-js-loader";
+import Form from 'react-bootstrap/Form'
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { useParams } from 'react-router';
+import { Modal } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import EditTodo from './edit-todo.component';
+
+
 
 const myStyle = {
 
   backgroundColor: '#212529',
-  // width: '100%',
-  // backgroundSize: 'cover',
-  // backgroundRepeat: 'no-repeat',
+
 };
 
 
-
-
 const TodosList = () => {
+
+  const [show, setShow] = React.useState(false);
+  const handleClose = () => setShow(false);
+
+
+  const handleShow = (id) => {
+
+    console.log(id);
+    getData(id);
+    setShow(true);
+
+
+  }
+
+
+
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([])
+  const [edit, setEdit] = useState([])
+
   const fetchData = async () => {
-    
+
     const { data: response } = await axios.get('http://localhost:4000/api/get');
 
     setData(response.data);
@@ -36,6 +61,15 @@ const TodosList = () => {
     fetchData()
   }, []);
 
+  const getData = async (id) => {
+
+    const edit = await axios.get(`http://localhost:4000/api/get/${id}`);
+    console.log(id);
+    setEdit(edit);
+
+    console.log(edit);
+    // setLoading(false)
+  }
 
   const deletedata = async (id) => {
 
@@ -44,8 +78,10 @@ const TodosList = () => {
   useEffect(() => {
     fetchData();
   }, [deletedata]);
+
+
   if (loading) return <div className='loader'>
-      <Loader type="bubble-loop" bgColor={"#212529"} title={"Loading"} color={'blue'} size={100} />
+    <Loader type="bubble-loop" bgColor={"#212529"} title={"Loading"} color={'blue'} size={100} />
   </div>;
   return (
     <>
@@ -68,9 +104,8 @@ const TodosList = () => {
                         {item.date}
                       </Moment></td>
                     <td className="table-actions">
-                      <Link to={{ pathname: `/edit/${item._id}` }} >
-                        Edit Task
-                      </Link>
+
+                      <Button onClick={() => handleShow(item._id)}> Edit</Button>
                     </td>
                     <td className="table-actions">
                       <Button
@@ -83,15 +118,25 @@ const TodosList = () => {
                     </td>
                   </tr>
                 )
+
               })}
             </tbody>
           </table>
 
         </Container>
       </div>
+      <Modal
+         show={show} onHide={handleClose} style={myStyle} centered>
+        <Modal.Header closeButton >
+          <Modal.Title>Update {edit?.data?.data?.todo_name}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <EditTodo id={edit?.data?.data?._id} ></EditTodo>
+        </Modal.Body>
+      </Modal>
     </>
   )
 }
 
 
-export default TodosList;
+export default TodosList
