@@ -7,7 +7,7 @@ const Todo=require('../Model/todo.model')
 todoRoutes.post('/create-todo' , async(req,res)=> {
    
   try{
-    console.log(JSON.stringify(req.body));
+   
     const todo_name=req.body.todo_name;
     const date=Date.parse(req.body.date);
 
@@ -38,6 +38,26 @@ todoRoutes.route('/get').get((req,res,next)=>{
     })
     
 })
+
+todoRoutes.route('/get/:id').get((req,res,next)=>{
+  Todo.findById(req.params.id,(error,data)=>{
+      if(error){
+          return next(error)
+      }
+      else{
+       //console.log(data);
+       res.status(200).send({data:data})
+      }
+
+  })
+  
+})
+
+// todoRoutes.route('get/:id').get((req, res) => {
+//   Todo.findById(req.params.id)
+//     .then((task) => res.json(task))
+//     .catch((err) => res.status(400).json('Error: ' + err));
+// });
 
 //UPDATE data
 

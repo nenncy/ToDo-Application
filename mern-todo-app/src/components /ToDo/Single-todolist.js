@@ -61,6 +61,7 @@ function SingleCard(props) {
             {/* <Button onClick={() => handleShow(props._id)}> edit</Button> */}
           </Card.Body>
         </Card>
+        
         <Modal
          show={show} onHide={handleClose} style={myStyle} centered>
         <Modal.Header closeButton >

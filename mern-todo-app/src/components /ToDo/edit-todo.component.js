@@ -97,7 +97,7 @@ import {useNavigate} from 'react-router-dom'
 // };
 
 import SingleCard from "./Single-todolist";
-import Moment from 'react-moment';
+import moment from 'moment';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import Loader from 'react-js-loader';
@@ -113,28 +113,52 @@ const myStyle = {
   hieght: '100%'
 };
 
-function EditTodo({id}) {
+function EditTodo({id ,todo_name}) {
 
-  // const id=_id;
+  const todoname=todo_name;
 
-  // console.log(id);
+  // console.log(todoname);
   const params = useParams();
   const [loading, setLoading] = useState(true);
+  const[edit,setEdit]=useState();
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  
   const navigate = useNavigate();
 
   const [data, setData] = useState({
+    
     todo_name: "",
     date: ""
   });
 
+  const getData = async (id) => {
+
+    const edit = await axios.get(`http://localhost:4000/api/get/${id}`);
+    // console.log(id);
+    setEdit(edit);
+
+    //console.log(moment((edit.data.data.date)).format("DD/MM/YYYY"));
+    //const defaultValue = `${new Date(edit.data.data.date).toISOString().slice(0,10)}T12:00:00.000Z`;
+
+    // setLoading(false)
+  };
+  console.log(moment((edit?.data?.data?.date)).toISOString());
+  const defaultValue = new Date()
+  console.log(defaultValue)
+  useEffect(()=>{
+    
+   getData(id);
+
+  })
+
+ 
+
   const handleChange = (e) => {
     const value = e.target.value;
-
+    
     setData({ ...data, todo_name: e.target.value })
 
   };
@@ -144,20 +168,6 @@ function EditTodo({id}) {
       ...data,
       date: date
     });
-  };
-  const notify = () => {
-
-    toast.success('Task is Updated!', {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-
-    // navigate('/');
   };
 
   const handleSubmit = (e) => {
@@ -174,19 +184,39 @@ function EditTodo({id}) {
       console.log(response.status);
       console.log(response.data);
     });
-    // console.log("notified");
+    //  console.log("notified");
+    toast.success('Task is Updated!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
   return (
     <>
-      <Form onSubmit={handleSubmit} >
+     <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover></ToastContainer>
+           <Form onSubmit={handleSubmit} >
             <Form.Group controlId="Task">
               <Form.Label >Task name</Form.Label>
-              <Form.Control type="text" value={data.todo_name} onChange={handleChange} />
+              <Form.Control type="text" defaultValue={edit?.data?.data?.todo_name} onChange={handleChange}  />
             </Form.Group>
             <Form.Group controlId="date">
               <Form.Label >Date</Form.Label>
 
               <DatePicker
+             
                 selected={data.date}
                 onChange={onChangeDate}
                 dateFormat='yyyy/MM/dd'
@@ -197,19 +227,10 @@ function EditTodo({id}) {
               />
             </Form.Group>
 
-            <Button size="sm" block="block" type='submit' className="mt-4" onClick={notify}>
+            <Button size="sm" block="block" type='submit' className="mt-4" onClick={handleClose}>
               Save
             </Button>
-            <ToastContainer
-              position="top-right"
-              autoClose={5000}
-              hideProgressBar
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover></ToastContainer>
+           
           </Form>
     </>
   );

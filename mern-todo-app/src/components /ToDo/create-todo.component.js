@@ -82,7 +82,8 @@ function CreateTodo() {
       console.log(response.status);
       console.log(response.data);
     });
-    // console.log("notified");
+    toast.success("Task is created")
+    console.log("notified");
   };
 
   const [task, setTask] = useState([])
@@ -130,6 +131,16 @@ function CreateTodo() {
           </div>
         </section>
       </div>
+      <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover></ToastContainer>
       <Modal
         show={show} onHide={handleClose} style={myStyle} centered>
         <Modal.Header closeButton >
@@ -156,19 +167,10 @@ function CreateTodo() {
               />
             </Form.Group>
 
-            <Button size="sm" block="block" type='submit' className="mt-4" onClick={notify}>
+            <Button size="sm" block="block" type='submit' className="mt-4" onClick={handleClose} >
               Save
             </Button>
-            <ToastContainer
-              position="top-right"
-              autoClose={5000}
-              hideProgressBar
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover></ToastContainer>
+           
           </Form>
         </Modal.Body>
       </Modal>

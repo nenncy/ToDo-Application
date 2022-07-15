@@ -64,7 +64,7 @@ const TodosList = () => {
   const getData = async (id) => {
 
     const edit = await axios.get(`http://localhost:4000/api/get/${id}`);
-    console.log(id);
+    // console.log(id);
     setEdit(edit);
 
     console.log(edit);
@@ -125,13 +125,23 @@ const TodosList = () => {
 
         </Container>
       </div>
+      <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover></ToastContainer>
       <Modal
          show={show} onHide={handleClose} style={myStyle} centered>
         <Modal.Header closeButton >
           <Modal.Title>Update {edit?.data?.data?.todo_name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <EditTodo id={edit?.data?.data?._id} ></EditTodo>
+          <EditTodo id={edit?.data?.data?._id} todo_name={edit?.data?.data?.todo_name} ></EditTodo>
         </Modal.Body>
       </Modal>
     </>
