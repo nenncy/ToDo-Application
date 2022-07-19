@@ -9,7 +9,7 @@ function NavigationBar() {
 
   return (
     <>
-      <Navbar collapseOnSelect expand='sm' bg='dark' variant='dark'  fixed="top">
+      <Navbar collapseOnSelect expand='sm' bg='dark' variant='dark' fixed="top">
         <Container>
           <Navbar.Brand > <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
             GETSET
@@ -17,23 +17,27 @@ function NavigationBar() {
 
           <Navbar.Toggle aria-controls='responsive-navbar-nav' />
           <Navbar.Collapse id='responsive-navbar-nav'>
-            <Nav>
-             
-                <Link to="/lists" style={{ textDecoration: 'none', color: 'white' , margin:'8px'}}>
-                  Lists
-                </Link>
-             
-              
-                <Link to="/create" style={{ textDecoration: 'none', color: 'white',margin:'8px' }}>
-                  Create
-                </Link>
-              
-         
-                <Link to="/today" style={{ textDecoration: 'none', color: 'white' ,margin:'8px'}}>
-                  Today
-                </Link>
-              
+            <Nav className="me-auto">
+
+              <Link to="/lists" style={{ textDecoration: 'none', color: 'white', margin: '8px' }}>
+                Lists
+              </Link>
+
+
+              <Link to="/create" style={{ textDecoration: 'none', color: 'white', margin: '8px' }}>
+                Create
+              </Link>
+
+
+              <Link to="/today" style={{ textDecoration: 'none', color: 'white', margin: '8px' }}>
+                Today
+              </Link>
             </Nav>
+            <Nav>
+              {/* <Nav.Link href="#deets">More deets</Nav.Link> */}
+              <Button variant="outline-primary">LOGIN</Button>{' '}
+            </Nav>
+
           </Navbar.Collapse>
         </Container>
       </Navbar>

@@ -145,9 +145,8 @@ function EditTodo({id ,todo_name}) {
 
     // setLoading(false)
   };
-  console.log(moment((edit?.data?.data?.date)).toISOString());
-  const defaultValue = new Date()
-  console.log(defaultValue)
+ 
+
   useEffect(()=>{
     
    getData(id);
@@ -214,10 +213,11 @@ function EditTodo({id ,todo_name}) {
             </Form.Group>
             <Form.Group controlId="date">
               <Form.Label >Date</Form.Label>
-
               <DatePicker
+                defaultValue={edit?.data?.data?.date ? new Date(edit?.data?.data?.date) : data.date}
              
-                selected={data.date}
+                //selected={edit?.data?.data?.date ? new Date(edit?.data?.data?.date) : data.date}
+                 selected={data.date}
                 onChange={onChangeDate}
                 dateFormat='yyyy/MM/dd'
                 showYearDropdown
